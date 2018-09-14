@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_131"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="sols"/>
 	<classpathentry kind="lib" path="D:/desarrollo/libs/vlcj-3.10.1/vlcj-3.10.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/D:/desarrollo/libs/vlcj-3.10.1/vlcj-3.10.1-javadoc.jar!/"/>
