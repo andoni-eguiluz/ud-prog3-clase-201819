@@ -42,6 +42,7 @@ package es.deusto.prog3.cap00.ejercicios.edicionSprites;
  *  &nbsp;&nbsp;- Hace el movimiento sin animar la secuencia (toma el sprite seleccionado actualmente)<br/>
  *  &nbsp;&nbsp;- Realiza a la vez las dos animaciones, la de secuencia y la de movimiento<br/>
  *  Otras anotaciones:<br/>
+ *  - Valora los layouts más adecuados para cada panel. Intenta utilizar los más sencillos.<br/>
  *  - Los cuadros de texto que van con sliders asociados deben alimentarse mutuamente (si se cambia el slider cambia el texto y viceversa). Intenta hacerlo de una forma metódica en lugar de repitiendo código.<br/>
  *  - Haz una ventana interna (JInternalFrame) en lugar de un JFrame normal y así podría integrarse con otras ventanas de la misma aplicación<br/>
  *  - La Arena debería ocupar el máximo espacio posible de la ventana. El resto de los paneles el mínimo necesario.<br/>
@@ -50,10 +51,10 @@ package es.deusto.prog3.cap00.ejercicios.edicionSprites;
  *  - Si quieres probar los SplitPane puedes hacer uno entre (3) y (4)<br/>
  *  
  * <br/>
- * Programación posterior:
- *  Hay que definir modelos de datos para las listas (¿de qué tipo cada JList y cada modelo?)
- *  Hilos para los plays (¿cuántos? ¿cuándo?)
- *  Hay que usar alguna estructura (ArrayList por ejemplo) para guardar toda la configuración de la secuencia (¿varios arraylists o un arraylist de una clase nueva?)
+ * Programación posterior:<br/>
+ *  Hay que definir modelos de datos para las listas (¿de qué tipo cada JList y cada modelo?)<br/>
+ *  Hilos para los plays (¿cuántos? ¿cuándo?)<br/>
+ *  Hay que usar alguna estructura (ArrayList por ejemplo) para guardar toda la configuración de la secuencia (¿varios arraylists o un arraylist de una clase nueva?)<br/>
  */
 public class VentanaEdicionSprites {
 
