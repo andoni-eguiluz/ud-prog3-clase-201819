@@ -43,10 +43,14 @@ public class VentanaConfirmacionLenta {
 		bAceptar.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				bAceptar.setEnabled( false );
 				Thread t = new Thread( new Runnable() {
 					@Override
 					public void run() {
+						System.out.println( "Inicio hilo");
 						procesoConfirmar();
+						System.out.println( "Fin hilo");
+						bAceptar.setEnabled( true );
 					}
 				});
 				t.start();
