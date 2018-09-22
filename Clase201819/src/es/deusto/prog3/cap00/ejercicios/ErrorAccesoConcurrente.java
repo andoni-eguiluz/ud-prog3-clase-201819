@@ -53,7 +53,7 @@ public class ErrorAccesoConcurrente {
 		if (taSalida.getText().length()>100000) {  // Para que no se llene la textarea vamos quitando de vez en cuando
 			taSalida.replaceRange( "", 0, 50000 );
 		}
-		// Sería más correcto hacer esto para respetar a Swing (que no es Thread-safe):
+		// Aunque en este caso no va a haber problema, sería más correcto hacer esto para respetar a Swing (que no es Thread-safe):
 		// try {
 		// 	SwingUtilities.invokeAndWait( new Runnable() {
 		// 		@Override
