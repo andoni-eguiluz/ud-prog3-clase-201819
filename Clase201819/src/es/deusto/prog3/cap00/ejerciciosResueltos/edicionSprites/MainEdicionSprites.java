@@ -1,7 +1,6 @@
 package es.deusto.prog3.cap00.ejerciciosResueltos.edicionSprites;
 
 import javax.swing.UIManager;  // Para usar look and feels distintos al estándar
-import javax.swing.UIManager.*;
 
 /** Clase principal de edición de sprites<br/>
  * Enlace a un zip con gráficos para sprites de ejemplo:
