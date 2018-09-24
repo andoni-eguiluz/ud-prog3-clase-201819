@@ -54,6 +54,7 @@ public class VentanaQuijote2 extends JFrame {
 				hilosPendientes.add( this );
 				while (hilosPendientes.get(0) != this) {
 					try {
+						System.out.println( "Espero a " + hilosPendientes.get(0) );
 						hilosPendientes.get(0).join();  // alternativa a sleep
 					} catch (InterruptedException e) {}
 				}
