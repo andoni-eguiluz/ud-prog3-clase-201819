@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 /** Clase mejorada de JLabel para gestionar imágenes ajustadas al JLabel
  */
@@ -14,6 +15,7 @@ public class JLabelGraficoAjustado extends JLabel {
 	// la posición X,Y se hereda de JLabel
 	protected int anchuraObjeto;   // Anchura definida del objeto en pixels
 	protected int alturaObjeto;    // Altura definida del objeto en pixels
+	protected double zoom;         // Zoom del objeto en %  (1.0 = 100%)
 	protected double radsRotacion; // Rotación del objeto en radianes
 	protected float opacidad;      // Opacidad del objeto (0.0f a 0.1f)
 	protected BufferedImage imagenObjeto;  // imagen para el escalado
@@ -26,6 +28,7 @@ public class JLabelGraficoAjustado extends JLabel {
 	 * @param altura	Altura del gráfico en píxels (si es <= 0 ocupa todo el alto)
 	 */
 	public JLabelGraficoAjustado( String nombreImagenObjeto, int anchura, int altura ) {
+		zoom = 1.0;
 		setName( nombreImagenObjeto );
 		opacidad = 1.0f;
 		setImagen( nombreImagenObjeto ); // Cargamos el icono
@@ -42,6 +45,7 @@ public class JLabelGraficoAjustado extends JLabel {
     	setPreferredSize( new Dimension( anchura, altura ));
 	}
 	
+		Border bordeError = BorderFactory.createLineBorder( Color.red );
 	/** Cambia la imagen del objeto
 	 * @param nomImagenObjeto	Nombre fichero donde está la imagen del objeto. Puede ser también un nombre de recurso desde el paquete de esta clase.
 	 */
@@ -63,10 +67,36 @@ public class JLabelGraficoAjustado extends JLabel {
         }
         if (imagenObjeto==null) {
 			setOpaque( true );
+			setBackground( Color.orange );
+			setForeground( Color.blue );
+	    	setBorder( bordeError );
+	    	setText( nomImagenObjeto );
+        } else {
+        	if (getBorder()==bordeError) setBorder( null );
+        	setOpaque( false );
+        	setText( "" );
+        }
+        repaint();
+	}
+	
+	/** Cambia la imagen del objeto
+	 * @param urlImagenObjeto	URL de recurso o fichero donde está la imagen del objeto.
+	 */
+	public void setImagen( URL urlImagenObjeto ) {
+		imagenObjeto = null;
+    	try {  // guarda la imagen para dibujarla de forma escalada después
+			imagenObjeto = ImageIO.read( urlImagenObjeto );
+		} catch (IOException e) {}  // Error al leer la imagen - se queda a null
+        if (imagenObjeto==null) {
+			setOpaque( true );
 			setBackground( Color.red );
 			setForeground( Color.blue );
-	    	setBorder( BorderFactory.createLineBorder( Color.blue ));
-	    	setText( nomImagenObjeto );
+	    	setBorder( bordeError );
+	    	setText( "" + urlImagenObjeto.getFile() );
+        } else {
+        	if (getBorder()==bordeError) setBorder( null );
+        	setOpaque( false );
+        	setText( "" );
         }
         repaint();
 	}
@@ -97,6 +127,21 @@ public class JLabelGraficoAjustado extends JLabel {
 	 */
 	public void setRotacion( double rotacion ) {
 		radsRotacion = rotacion;
+		repaint(); // Si no repintamos aquí Swing no sabe que ha cambiado el dibujo
+	}
+	
+	/** Devuelve el zoom del objeto
+	 * @return	Zoom actual del objeto en % (1.0 = 100%)
+	 */
+	public double getZoom() {
+		return zoom;
+	}
+
+	/** Modifica el zoom del objeto
+	 * @param rotacion	Nuevo zoom del objeto en % (1.0 = 100%)
+	 */
+	public void setZoom( double zoom ) {
+		this.zoom = zoom;
 		repaint(); // Si no repintamos aquí Swing no sabe que ha cambiado el dibujo
 	}
 	
@@ -151,7 +196,12 @@ public class JLabelGraficoAjustado extends JLabel {
 			g2.rotate( radsRotacion, getWidth()/2, getHeight()/2 );  // Incorporar al gráfico la rotación definida
 			// Transparencia
 			g2.setComposite(AlphaComposite.getInstance( AlphaComposite.SRC_OVER, opacidad ) ); // Incorporar la transparencia definida
-	        g2.drawImage(imagenObjeto, iniX, iniY, anc, alt, null);
+			// Cálculo de zoom
+			int ancZoom = (int) Math.round( anc * zoom );
+			int altZoom = (int) Math.round( alt * zoom );
+			int iniXZoom = iniX + (anc - ancZoom)/2;
+			int iniYZoom = iniY + (alt - altZoom)/2;
+	        g2.drawImage(imagenObjeto, iniXZoom, iniYZoom, ancZoom, altZoom, null);
 		}
 	}
 

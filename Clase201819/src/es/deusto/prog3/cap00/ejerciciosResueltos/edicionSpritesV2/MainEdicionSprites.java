@@ -17,6 +17,20 @@ public class MainEdicionSprites {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Exception e) { } // Si Nimbus no está disponible, se usa el l&f por defecto
 		VentanaEdicionSprites v = new VentanaEdicionSprites();
+		
+		
+		// TODO Sentencias de prueba
+		// Estas tres líneas inicializan la secuencia con tres gráficos de ejemplos (sustituir los paths por los gráficos que se deseen)
+		// (Para hacer pruebas en cualquier ventana a veces es conveniente inicializar componentes a mano
+		// y así se pueden probar cosas sin tener que hacer todos los pasos. Luego se quitan cuando las 
+		// pruebas se han acabado)
+		v.getController().anyadirSpriteASecuencia( new java.io.File( "D:\\t\\spritesheets\\ninja\\png\\Attack__000.png" ) );
+		v.getController().anyadirSpriteASecuencia( new java.io.File( "D:\\t\\spritesheets\\ninja\\png\\Attack__001.png" ) );
+		v.getController().anyadirSpriteASecuencia( new java.io.File( "D:\\t\\spritesheets\\ninja\\png\\Attack__002.png" ) );
+		v.getController().anyadirSpriteASecuencia( new java.io.File( "D:\\t\\spritesheets\\ninja\\png\\Attack__003.png" ) );
+		v.getController().anyadirSpriteASecuencia( new java.io.File( "D:\\t\\spritesheets\\ninja\\png\\Attack__004.png" ) );
+		
+		
 		v.setVisible( true );
 	}
 
