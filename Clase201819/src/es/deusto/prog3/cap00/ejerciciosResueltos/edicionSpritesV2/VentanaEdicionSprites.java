@@ -1,7 +1,7 @@
 package es.deusto.prog3.cap00.ejerciciosResueltos.edicionSpritesV2;
 
 // Iconos descargados de https://www.freepik.com/free-icons
-// (en alud)
+// (en alud - "Gráficos de ejemplo para ejercicio de edición de sprites")
 
 // Imports clásicos en casi cualquier programa de ventanas con Swing
 import java.awt.*;
