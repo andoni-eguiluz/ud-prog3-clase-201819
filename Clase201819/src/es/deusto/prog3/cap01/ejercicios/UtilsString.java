@@ -5,7 +5,7 @@ package es.deusto.prog3.cap01.ejercicios;
  * @author Andoni Eguíluz Morán
  * Facultad de Ingeniería - Universidad de Deusto
  */
-public class EjemploUtilidadesStringParaJUnit {
+public class UtilsString {
 
 	/** Devuelve cualquier string sin saltos de línea ni tabuladores (para poder exportarlo de forma tabular sin conflicto)
 	 * @param s	String con cualquier contenido
