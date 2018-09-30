@@ -29,6 +29,10 @@ public class ControladorVentanaSprites {
 		int offsetY = 0;
 		int duracionMsegs = 100;
 	}
+	// Nota: La otra manera de gestionar esto (más recomendable desde el punto de vista del diseño)
+	// sería hacer la JList de secuencia como una JList<SpriteSec> y definir el SpriteSec
+	// para que incluya también el File (bien heredando de File, bien incorporándolo como atributo)
+	
 	
 	/** Constructor de controlador de ventana de edición de sprites
 	 * @param vent	Ventana a controlar
@@ -55,6 +59,7 @@ public class ControladorVentanaSprites {
 			public Component getListCellRendererComponent(JList<? extends File> list, 
 					File value, int index, boolean isSelected, boolean cellHasFocus) {
 				// Cambio del contenido del panel para que se dibuje el fichero value
+				System.out.println( "CR " + index );
 				if (value==null) {
 					dibujitoSprite.setImagen( (URL) null );
 					textoSprite.setText( "Error" );
