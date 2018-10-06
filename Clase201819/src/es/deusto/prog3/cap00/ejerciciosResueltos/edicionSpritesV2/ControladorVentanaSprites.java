@@ -59,7 +59,6 @@ public class ControladorVentanaSprites {
 			public Component getListCellRendererComponent(JList<? extends File> list, 
 					File value, int index, boolean isSelected, boolean cellHasFocus) {
 				// Cambio del contenido del panel para que se dibuje el fichero value
-				System.out.println( "CR " + index );
 				if (value==null) {
 					dibujitoSprite.setImagen( (URL) null );
 					textoSprite.setText( "Error" );
@@ -437,20 +436,31 @@ public class ControladorVentanaSprites {
 	private double zoom = 1.0;
 	private double rotPorFotograma = 0.0;
 	private double zoomPorFotograma = 1.0;
-	private final long MILIS_POR_FRAME = 20; // Unas 50 veces por segundo
+	private final long MILIS_POR_FRAME = 20; // Unas 50 veces por segundo (Máximo! Luego medimos para ver los fps -frames por segundo- reales)
+		// medición de fps (por curiosidad de ver cuál es el rendimiento de nuestro sistema)
+		int numFrames = 0;
 	
 	private void lanzarHilo() {
 		Thread t = new Thread( new Runnable() {
+			long initTime = System.currentTimeMillis();
 			public void run() {
+				long lastTime = System.currentTimeMillis();
 				while( true ) {  // Lo ponemos forever y lo definiremos demon para que se pare solo
+					numFrames++;
 					try { Thread.sleep( MILIS_POR_FRAME ); } catch (Exception e) {}  
+					long tiempoReal = System.currentTimeMillis() - lastTime;  // Tiempo real transcurrido entre ejecución y ejecución del bucle
+						// En el algoritmo usamos tiempoReal en lugar de MILIS_POR_FRAME. Serán muy parecidos pero según la complejidad del código
+						// ocurrirá que entre bucle y bucle a veces pasen más milisegundos de los esperados. Es más preciso siempre usar el clock
+						double fps = numFrames * 1000.0 / (lastTime-initTime);
+						if (tiempoReal!=MILIS_POR_FRAME) miVentana.setTitle( "Edición de sprites - Prog. III - " + String.format( "%.1f" , fps) + " FPS (Pérdida de " + (tiempoReal-MILIS_POR_FRAME) + " msg.)" ); // Mostramos cuántos milis se pierden y cómo afecta eso a los frames por segundo
+					lastTime = System.currentTimeMillis();
 					if (enMovimiento && fotogramaSecuencia!=-1) {
 						if (enAnim) {
 							double vx = vel * Math.cos(angVel);
 							double vy = vel * Math.sin(angVel);
-							posX += (vx/1000.0*MILIS_POR_FRAME);  // Sx = Sx + Vx*t 
-							posY += (vy/1000.0*MILIS_POR_FRAME);  // Sy = Sy + Vy*t 
-							vy += (gravedad/1000.0*MILIS_POR_FRAME);  // Vy = Vy + G*t, Vx = Vx (no hay rozamiento)
+							posX += (vx/1000.0*tiempoReal);  // Sx = Sx + Vx*t 
+							posY += (vy/1000.0*tiempoReal);  // Sy = Sy + Vy*t 
+							vy += (gravedad/1000.0*tiempoReal);  // Vy = Vy + G*t, Vx = Vx (no hay rozamiento)
 							vel = Math.sqrt( vx*vx + vy*vy );   // V = hipotenusa
 							angVel = Math.atan2( vy, vx );      // ang = arco tangente (atan2 ya hace el cálculo de cuadrante)
 							zoom *= zoomPorFotograma;
@@ -467,7 +477,7 @@ public class ControladorVentanaSprites {
 							}
 						}
 						if (enSecuencia) {
-							milisFotogramaActual -= MILIS_POR_FRAME;  // Decrementa milis de la secuencia
+							milisFotogramaActual -= tiempoReal;  // Decrementa milis de la secuencia
 							if (milisFotogramaActual<=0) {  // Pasa al siguiente fotograma
 								fotogramaSecuencia++;
 								if (fotogramaSecuencia>=datosSecuencia.size()) {
