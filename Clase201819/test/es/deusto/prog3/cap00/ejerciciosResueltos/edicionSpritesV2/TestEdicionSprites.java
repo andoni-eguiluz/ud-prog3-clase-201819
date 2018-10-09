@@ -13,6 +13,8 @@ import es.deusto.prog3.cap00.ejerciciosResueltos.edicionSpritesV2.VentanaEdicion
 
 public class TestEdicionSprites {
 
+	private static final long PAUSA = 2000;
+	
 	private VentanaEdicionSprites v;
 	@Before
 	public void setUp() throws Exception {
@@ -22,7 +24,7 @@ public class TestEdicionSprites {
 
 	@After
 	public void tearDown() throws Exception {
-		try { Thread.sleep(100); } catch (Exception e) {}
+		try { Thread.sleep(PAUSA); } catch (Exception e) {}
 		v.dispose();
 	}
 
@@ -30,17 +32,16 @@ public class TestEdicionSprites {
 	@Test
 	public void testSliderAngulo() {
 		v.setVisible( true );
-		try { Thread.sleep(200); } catch (Exception e) {} // Esperamos a que swing saque la ventana
+		try { Thread.sleep(PAUSA); } catch (Exception e) {} // Esperamos a que swing saque la ventana
 		v.slAngulo.setValue( 44 ); // SIMULO QUE EL USUARIO CAMBIA EL SLIDER A 44
-		try { Thread.sleep(100); } catch (Exception e) {} // Esperamos a que actúe el escuchador
+		try { Thread.sleep(PAUSA); } catch (Exception e) {} // Esperamos a que actúe el escuchador
 		assertEquals( "44", v.tfAngulo.getText() );  // Al mover el sl cambia el tf
 		v.tfAngulo.requestFocus(); // Simulamos foco en el textfield
 		v.tfAngulo.setText( "45" );
 		v.tfAncho.requestFocus(); // Simulamos salida de foco del textfield
-		try { Thread.sleep(100); } catch (Exception e) {} // Esperamos a que actúe el escuchador
+		try { Thread.sleep(PAUSA); } catch (Exception e) {} // Esperamos a que actúe el escuchador
 		assertEquals( 45, v.slAngulo.getValue() );  // Al cambiar el tf cambia el sl
 	}
-	/*
 
 	// Ejemplo de prueba de interacción simulando ratón
 	@Test
@@ -52,7 +53,7 @@ public class TestEdicionSprites {
 			v.getController().anyadirSpriteASecuencia( ej1 );
 			v.getController().anyadirSpriteASecuencia( ej2 );
 			v.setVisible( true );
-			try { Thread.sleep(2000); } catch (Exception e) {}
+			try { Thread.sleep(PAUSA); } catch (Exception e) {}
 			File f = v.mSecuencia.getElementAt(0);  // elemento 0
 			Robot r = new Robot();
 			Point listaSec = v.lSecuencia.getLocationOnScreen();  // Posición de la lista
@@ -60,12 +61,12 @@ public class TestEdicionSprites {
 				r.mouseMove( listaSec.x + 20, listaSec.y + 10 ); // Ratón al primer elemento (20 píxels a la derecha y 10 abajo de la esquina)
 				// System.out.println( MouseInfo.getPointerInfo().getLocation() );
 			}
-			try { Thread.sleep(2000); } catch (Exception e) {}
+			try { Thread.sleep(PAUSA); } catch (Exception e) {}
 			r.mousePress( InputEvent.BUTTON1_DOWN_MASK );
 			r.mouseRelease( InputEvent.BUTTON1_DOWN_MASK );  // Simulamos click
-			try { Thread.sleep(2000); } catch (Exception e) {} // Esperamos a que actúe el escuchador
+			try { Thread.sleep(PAUSA); } catch (Exception e) {} // Esperamos a que actúe el escuchador
 			v.bAbajo.doClick(); // Simulación programática de click de botón de abajo
-			try { Thread.sleep(2000); } catch (Exception e) {} // Esperamos a que actúe el escuchador
+			try { Thread.sleep(PAUSA); } catch (Exception e) {} // Esperamos a que actúe el escuchador
 			assertEquals( f, v.mSecuencia.getElementAt(1) ); // El elemento en 0 tiene que haber bajado a 1
 		} catch (AWTException e) {}
 	}
@@ -75,10 +76,10 @@ public class TestEdicionSprites {
 	public void testCambioRotacionPorTeclado() {
 		try {
 			v.setVisible( true );
-			try { Thread.sleep(200); } catch (Exception e) {}
+			try { Thread.sleep(PAUSA); } catch (Exception e) {}
 			v.tfRotacionAnim.setText( "" );
 			v.tfRotacionAnim.requestFocus();
-			try { Thread.sleep(100); } catch (Exception e) {}
+			try { Thread.sleep(PAUSA); } catch (Exception e) {}
 			Robot r = new Robot();
 			r.keyPress( KeyEvent.VK_5 );
 			r.keyRelease( KeyEvent.VK_5 );
@@ -86,10 +87,10 @@ public class TestEdicionSprites {
 			r.keyRelease( KeyEvent.VK_0 );
 			r.keyPress( KeyEvent.VK_TAB );
 			r.keyRelease( KeyEvent.VK_TAB );
-			try { Thread.sleep(200); } catch (Exception e) {}  // Esperamos a que actúe el escuchador
+			try { Thread.sleep(PAUSA); } catch (Exception e) {}  // Esperamos a que actúe el escuchador
 			assertEquals( "50", v.tfRotacionAnim.getText() ); // El elemento en 0 tiene que haber bajado a 1
 			assertEquals( 50, v.slRotacionAnim.getValue() ); // El elemento en 0 tiene que haber bajado a 1
 		} catch (AWTException e) {}
 	}
-*/	
+	
 }
