@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import es.deusto.prog3.cap00.ejerciciosResueltos.edicionSpritesV2.VentanaEdicionSprites;
 
+/** Prueba de unidad (parcial) de ventana de edición de sprites
+ */
 public class TestEdicionSprites {
 
 	private static final long PAUSA = 2000;
@@ -19,7 +21,7 @@ public class TestEdicionSprites {
 	@Before
 	public void setUp() throws Exception {
 		v = new VentanaEdicionSprites();
-		v.setLocation(2000,0);
+		v.setLocation(2000,0); // Esto es solo para colocar la ventana donde quieras (quitar)
 	}
 
 	@After
