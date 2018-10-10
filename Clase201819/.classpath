@@ -11,5 +11,6 @@
 			<attribute name="javadoc_location" value="jar:file:/D:/desarrollo/libs/vlcj-3.10.1/vlcj-3.10.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/desarrollo/libs/sqlite-jdbc4-3.8.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
