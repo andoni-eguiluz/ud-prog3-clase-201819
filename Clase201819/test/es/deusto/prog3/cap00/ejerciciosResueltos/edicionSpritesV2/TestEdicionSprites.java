@@ -15,7 +15,7 @@ import es.deusto.prog3.cap00.ejerciciosResueltos.edicionSpritesV2.VentanaEdicion
  */
 public class TestEdicionSprites {
 
-	private static final long PAUSA = 2000;
+	private static final long PAUSA = 4000;
 	
 	private VentanaEdicionSprites v;
 	@Before
@@ -30,6 +30,7 @@ public class TestEdicionSprites {
 		v.dispose();
 	}
 
+	/*
 	// Prueba programática de relación entre slider y textfield
 	@Test
 	public void testSliderAngulo() {
@@ -44,6 +45,7 @@ public class TestEdicionSprites {
 		try { Thread.sleep(PAUSA); } catch (Exception e) {} // Esperamos a que actúe el escuchador
 		assertEquals( 45, v.slAngulo.getValue() );  // Al cambiar el tf cambia el sl
 	}
+	*/
 
 	// Ejemplo de prueba de interacción simulando ratón
 	@Test
@@ -72,7 +74,7 @@ public class TestEdicionSprites {
 			assertEquals( f, v.mSecuencia.getElementAt(1) ); // El elemento en 0 tiene que haber bajado a 1
 		} catch (AWTException e) {}
 	}
-
+	
 	// Ejemplo de prueba de interacción simulando teclado
 	@Test
 	public void testCambioRotacionPorTeclado() {
