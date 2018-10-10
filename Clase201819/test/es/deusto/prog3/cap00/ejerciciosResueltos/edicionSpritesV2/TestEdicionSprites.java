@@ -15,7 +15,7 @@ import es.deusto.prog3.cap00.ejerciciosResueltos.edicionSpritesV2.VentanaEdicion
  */
 public class TestEdicionSprites {
 
-	private static final long PAUSA = 200;
+	private static final long PAUSA = 150;
 	
 	private VentanaEdicionSprites v;
 	@Before
