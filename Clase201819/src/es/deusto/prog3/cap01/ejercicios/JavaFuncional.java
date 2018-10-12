@@ -42,7 +42,7 @@ public class JavaFuncional {
 	 * @param lista	Lista de substrings separados por comas
 	 * @return	Devuelve una lista de strings separando los substrings que estén con comas (quitando los espacios)
 	 */
-	private ArrayList<String> listaDeStrings( String lista ) {
+	private static ArrayList<String> listaDeStrings( String lista ) {
 		ArrayList<String> ret = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer( lista, "," );
 		while (st.hasMoreTokens()) {
@@ -55,7 +55,7 @@ public class JavaFuncional {
 	 * @param lista	Lista de strings que representan a enteros
 	 * @return	Lista de los enteros en la lista de strings (si algún string no es un entero válido, se ignora)
 	 */
-	private ArrayList<Integer> listaDeInts( ArrayList<String> lista ) {
+	private static ArrayList<Integer> listaDeInts( ArrayList<String> lista ) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (String string : lista) {
 			try {
