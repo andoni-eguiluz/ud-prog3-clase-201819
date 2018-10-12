@@ -24,7 +24,6 @@ public class JavaFuncional {
 		// Creación y configuración ventana
 		JFrame f = new JFrame( "Ejemplo de lambda en Java 8" );
 		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		f.setLocationRelativeTo( null );
 		// Componentes
 		JPanel pEntrada = new JPanel();
 		JButton bProcesar = new JButton( "Procesar" );
@@ -35,6 +34,7 @@ public class JavaFuncional {
 		f.add( lSalida, BorderLayout.SOUTH );
 		// Visualizar
 		f.pack();
+		f.setLocationRelativeTo( null );
 		f.setVisible( true );
 	}
 	
