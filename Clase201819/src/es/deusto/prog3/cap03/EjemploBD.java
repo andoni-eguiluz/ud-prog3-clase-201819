@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/** Ejemplo de uso de Base de Datos desde Java con JDBC
+/** Ejemplo mínimo de uso de Base de Datos desde Java con JDBC
  * Utilizando sqlite - debe incluirse la librería sqlite-jdbc*.jar
  * @author Andoni Eguíluz Morán
  * Facultad de Ingeniería - Universidad de Deusto
