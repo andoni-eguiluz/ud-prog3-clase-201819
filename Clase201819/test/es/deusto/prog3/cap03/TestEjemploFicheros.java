@@ -24,7 +24,7 @@ public class TestEjemploFicheros {
 		carp.mkdirs(); // Crea la carpeta si no existe
 		miListaUsuarios = new ArrayList<Usuario>();
 		miListaUsuarios.add( new Usuario( "buzz", "#9abbf", "Buzz", "Lightyear", 101202303, TipoUsuario.Admin, "buzz@gmail.com", "amigo.de.woody@gmail.com" ) );
-		miListaUsuarios.add( new Usuario( "woody", "woody", "Woody", "The cowboy", 666111222, TipoUsuario.Cliente, "woody-toystory@gmail.com" ) );
+		miListaUsuarios.add( new Usuario( "woody", "woo\ndy", "Woody", "The cowboy", 666111222, TipoUsuario.Cliente, "woody-toystory@gmail.com" ) );
 		miListaUsuarios.add( new Usuario( "pcruz", "4556gght", "Penélope", "Cruz", 609634852, TipoUsuario.Invitado, "penelope.cruz@gmail.com" ) );
 		miListaUsuarios.add( new Usuario( "jbardem", "bardemthebest", "Javier", "Bardem", 607349552, TipoUsuario.Invitado, "javier.bardem@gmail.com" ) );
 	}
