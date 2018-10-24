@@ -2,6 +2,8 @@ package es.deusto.prog3.cap03;
 
 import java.sql.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class MiniPracticaBD {
 
+	private static Logger logger = Logger.getLogger( "MiniPracticaBD" );
 	private static Connection con;
 	private static Statement s;
 	private static ResultSet rs;
@@ -20,13 +23,16 @@ public class MiniPracticaBD {
 			s = con.createStatement();
 			try {
 				com = "create table Usuario( nick STRING, pass STRING )";
+				logger.log( Level.INFO, "BD: " + com );
 				s.executeUpdate( com );
 			} catch (SQLException e) {} // Se lanza si la tabla ya existe - no hay problema
 			// Ver si existe admin
 			com = "select * from Usuario where nick = 'admin'";
+			logger.log( Level.INFO, "BD: " + com );
 			rs = s.executeQuery( com );
 			if (!rs.next()) { // Añadirlo si no existe
 				com = "insert into Usuario ( nick, pass ) values ('admin', 'admin')";
+				logger.log( Level.INFO, "BD: " + com );
 				s.executeUpdate( com );
 			}
 			anyadirUsuarios();
@@ -87,13 +93,14 @@ public class MiniPracticaBD {
 						// ...si no, cuidado con lo que venga en el campo de entrada.
 						// "select * from Usuario where nick = 'admin'";
 						com = "select * from Usuario where nick = '" + tfUsuario.getText() + "'";
+						logger.log( Level.INFO, "BD: " + com );
 						rs = s.executeQuery( com );
 						if (!rs.next()) {
 							// "insert into Usuario ( nick, pass ) values ('admin', 'admin')";
 							com = "insert into Usuario ( nick, pass ) values ('"+ 
 									tfUsuario.getText() +"', '" + tfPassword.getText() + "')";
+							logger.log( Level.INFO, "BD: " + com );
 							int val = s.executeUpdate( com );
-							System.out.println( "SQL: " + com );
 							if (val!=1) {
 								JOptionPane.showMessageDialog( ventana, "Error en inserción" );
 							}
@@ -118,8 +125,8 @@ public class MiniPracticaBD {
 					try {
 						// Borrar usuario
 						com = "delete from Usuario where nick = '"+ secu(tfUsuario.getText()) +"'";
+						logger.log( Level.INFO, "BD: " + com );
 						s.executeUpdate( com );
-						System.out.println( "SQL: " + com );
 					} catch (SQLException e2) {
 						System.out.println( "Último comando: " + com );
 						e2.printStackTrace();
@@ -151,6 +158,7 @@ public class MiniPracticaBD {
 		try {
 			while (mUsuarios.getRowCount()>0) mUsuarios.removeRow(0); // Vacía el modelo para volverlo a cargar de la bd
 			com = "select * from Usuario";
+			logger.log( Level.INFO, "BD: " + com );
 			rs = s.executeQuery( com );
 			while (rs.next()) {
 				String nick = rs.getString( "nick" );
