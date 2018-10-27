@@ -35,7 +35,7 @@ public class MiniPracticaBD {
 				logger.log( Level.INFO, "BD: " + com );
 				s.executeUpdate( com );
 			}
-			anyadirUsuarios();
+			editarUsuarios();
 			/* Al final (cuando se cierre la ventana):
 			rs.close();
 			s.close();
@@ -52,7 +52,7 @@ public class MiniPracticaBD {
 	private static DefaultTableModel mUsuarios; // Modelo de datos para la JTable
 	private static JTable tUsuarios; // JTable de usuarios
 	private static JFrame ventana;
-	private static void anyadirUsuarios() {
+	private static void editarUsuarios() {
 		// Inicializar tabla y modelo de tabla
 		Vector<String> cabeceras = new Vector<String>();
 		cabeceras.add( "nick" ); cabeceras.add( "pass" );
