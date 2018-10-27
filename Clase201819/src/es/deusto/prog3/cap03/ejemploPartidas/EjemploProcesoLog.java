@@ -3,18 +3,14 @@ package es.deusto.prog3.cap03.ejemploPartidas;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Parameter;
 
 // dtd de logs  copiado en  http://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html
 // El formato del logger deja un único registro log que contiene n registros "record". Cada uno de ellos 
@@ -39,6 +35,9 @@ import com.sun.org.apache.xalan.internal.xsltc.runtime.Parameter;
 
 public class EjemploProcesoLog {
 
+	// TODO ATENCIÓN: Copiar el logger.dtd que está en este paquete en la ruta del fichero que se quiere analizar (ver main)
+	private static String FICHERO_A_ANALIZAR = "bd.log.xml";
+	
 		private static boolean enExcepcion = false;
 	public static void parseXMLSAX( String xmlFile ) {
 		try {
@@ -69,7 +68,11 @@ public class EjemploProcesoLog {
 			};
 			MultipleXMLFileInputStream miXmlFile = new MultipleXMLFileInputStream(xmlFile);
 			do {
-				saxParser.parse( miXmlFile, handler );
+				try {
+					saxParser.parse( miXmlFile, handler );
+				} catch (SAXParseException e) {
+					System.out.println( "   Error de parsing XML en línea " + e.getLineNumber() + " - " + e.getMessage() );
+				}
 			} while (miXmlFile.tieneMasLogs());
 			miXmlFile.fullClose();
 		} catch (Exception e) {
@@ -113,7 +116,7 @@ public class EjemploProcesoLog {
 	
 	public static void main(String[] args) {
 		// parseXMLSAX( "bdtest.log.xml" );
-		parseXMLSAX( "bd.log.xml" );
+		parseXMLSAX( FICHERO_A_ANALIZAR );
 		System.out.println( "Logs: " + numLogs + " --> severos: " + numSevere );
 		System.out.println( "Excepciones:");
 		for (int i=0; i<excepciones.size(); i++) {
