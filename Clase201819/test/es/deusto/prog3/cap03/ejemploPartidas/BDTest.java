@@ -170,6 +170,16 @@ public class BDTest {
 		BD.cerrarBD( con, stat );
 	}
 	
-	
+	@Test
+	public void usuarioInsertCaracteresEspecialesTest() {
+	   	Connection con = BD.initBD( "bd-test" );
+	   	Statement stat =  BD.reiniciarBD( con );
+	   	Usuario u = new Usuario( "tomo", "pass", "Tom", "O'Reilly", 27, TipoUsuario.Empleado, new ArrayList<>() );
+	   	assertTrue( BD.usuarioInsert( stat, u ) );
+	   	ArrayList<Usuario> lUsuarios = BD.usuarioSelect( stat, null );     	
+	   	assertEquals( lUsuarios.size(), 1 );  // Comprueba el número de datos
+	   	BD.cerrarBD( con, stat );
+	}
+
 	
 }
