@@ -28,7 +28,7 @@ public class VentanaComoContenedorRecursivo {
 	private class Ventana extends JFrame {
 		private JTree2 tree;
 		public Ventana( boolean conPausa ) {
-			setTitle( "Arbol de funciones" );
+			setTitle( "Información jerárquica" );
 			setSize( 640, 480 );
 			setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 			setLocationRelativeTo( null );
