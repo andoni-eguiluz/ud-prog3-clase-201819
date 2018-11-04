@@ -16,9 +16,9 @@ public class LeerFicheroRec {
 		String linea = br.readLine();
 		if (linea!=null) {
 			// Al derecho
-			leerRecursoRec( br );
 			if (!linea.isEmpty()) System.out.println( linea );
-			// Al revés
+			leerRecursoRec( br );
+			// Al revés?
 		}
 	}
 	// Método Shell - no recursivo - inicializar y llamar primera vez al recursivo

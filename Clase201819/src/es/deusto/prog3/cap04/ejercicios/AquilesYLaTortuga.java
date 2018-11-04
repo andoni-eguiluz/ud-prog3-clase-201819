@@ -1,4 +1,4 @@
-package es.deusto.prog3.cap04;
+package es.deusto.prog3.cap04.ejercicios;
 
 public class AquilesYLaTortuga {
 	

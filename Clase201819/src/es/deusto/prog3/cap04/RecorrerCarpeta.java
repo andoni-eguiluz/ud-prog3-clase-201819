@@ -7,13 +7,16 @@ import java.io.File;
  */
 public class RecorrerCarpeta {
 
+	/** visualiza los ficheros y carpetas de nivel N
+	 * @param file	directorio o fichero a visualizar
+	 * @param n	su nivel
+	 */
 	public static void recorrerRec( File f, int nivel ) {
 		for (int i=0; i<nivel; i++) System.out.print( " " );
 		if (f.isFile()) {
 			System.out.println( f.getName() );
 		} else {  // isDirectory()
 			System.out.println( f.getName() + "\\" );
-			// TODO  Y cómo recorremos la carpeta?
 			for (File f2 : f.listFiles()) {
 				recorrerRec( f2, nivel+ 1 );
 			}
