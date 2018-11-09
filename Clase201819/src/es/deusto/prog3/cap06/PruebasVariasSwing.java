@@ -17,7 +17,7 @@ public class PruebasVariasSwing {
 
 	private static void pruebaTextoConTTF() {
 		String nombreFont = "SpecialElite.ttf";  // u otro ejemplo "Hack-Regular.ttf"
-		JFrame v= new JFrame("Texto con TTF Hack - en el mismo paquete");
+		JFrame v= new JFrame("Texto desde TTF");
 		v.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			Font f = Font.createFont( Font.TRUETYPE_FONT,
