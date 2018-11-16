@@ -1,6 +1,9 @@
 package es.deusto.prog3.cap04.sols;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -26,6 +29,7 @@ public class Laberinto {
 		if (l.acabado()) return true;
 		Direccion dir;
 		while ((dir = l.posibleMovimiento()) !=null) {
+			                        if (ventCerrada) return false; // Corte: Si se cierra la ventana, se acaba
 			l.mueve( dir );         mostrarLab( l, "Mueve " + dir, true ); // Visualización
 			boolean fin = resuelveLaberinto( l );
 			if (fin) sacaMens( "Encontrada una salida" );
@@ -39,12 +43,13 @@ public class Laberinto {
 	// Parte visual
 	// ====================================================
 	
-	private static JFrame ventana;          // Ventana de visualización del laberinto
-	private static JLabel[][] lLab;         // Etiquetas de texto para mostrar el laberinto
-	private static JTextArea taMens;        // Área de texto para mensajes
-	private static long msegsPausa = 1000;  // Msg de pausa entre movimientos  (de 0 a 1000)
-	private static boolean enPausa = true;  // Información de pausa
-	private static JSlider slTempo;         // Slider de velocidad
+	private static JFrame ventana;              // Ventana de visualización del laberinto
+	private static JLabel[][] lLab;             // Etiquetas de texto para mostrar el laberinto
+	private static JTextArea taMens;            // Área de texto para mensajes
+	private static long msegsPausa = 1000;      // Msg de pausa entre movimientos  (de 0 a 1000)
+	private static boolean enPausa = true;      // Información de pausa
+	private static boolean ventCerrada = false; // Información de cierre de ventana
+	private static JSlider slTempo;             // Slider de velocidad
 	
 	// Saca la ventana con el laberinto
 	private static void sacaVentana( Laberinto l ) {
@@ -88,6 +93,12 @@ public class Laberinto {
 				bPausa.setText( "Play" );
 			}
 			enPausa = !enPausa;
+		});
+		ventana.addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				ventCerrada = true;
+			}
 		});
 		// Visualización de ventana
 		ventana.setVisible( true );
@@ -138,7 +149,7 @@ public class Laberinto {
 	// Hace una pausa
 	private static void pausa() {
 		try { Thread.sleep( msegsPausa ); } catch (InterruptedException e) {}
-		while (enPausa) {
+		while (enPausa && !ventCerrada) {
 			try { Thread.sleep( msegsPausa ); } catch (InterruptedException e) {}
 		}
 	}
