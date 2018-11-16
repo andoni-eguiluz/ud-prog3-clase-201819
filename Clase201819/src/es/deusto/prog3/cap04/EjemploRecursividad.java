@@ -11,9 +11,26 @@ public class EjemploRecursividad {
 		// factorial(14, 0, 1);
 		// factorial2(14, 1);
 		// System.out.println( factorial3(14) );
-		System.out.println( fib(46) );
+		// System.out.println( fib(46) );
+		// Búsqueda binaria (ver BusquedaBinaria.java)
+		hanoi( 4, 'a', 'c', 'b' );
 	}
 	
+	// Resolver torre de hanoi de tamaño N de varilla o -> d, auxiliar a
+	// - Resolver torre N-1 o -> a, aux d
+	// - Mover disco N o -> d
+	// - Resolver torre N-1 a -> d, aux o
+	private static void hanoi( int n, char origen, char destino, char auxiliar ) {
+		if (n==1) {
+			System.out.println( "Mover 1 de " + origen + " a " + destino );
+		} else {
+			hanoi( n-1, origen, auxiliar, destino );
+			System.out.println( "Mover " + n + " de " + origen + " a " + destino );
+			hanoi( n-1, auxiliar, destino, origen );
+		}
+	}
+	
+		
 	/** Calcula y devuelve el número fibonacci correspondiente
 	 * fib(n) = fib(n-1) + fib(n-2), siendo fib(1)=1 y fib(2)=1
 	 * @param n	Valor de fibonacci. Debe ser n>=1

@@ -11,7 +11,23 @@ public class PrimerosPasos {
 		// visualizaFactorial1( 11, 0, 1 );
 		// visualizaFactorial2( 11 );
 		// System.out.println( factorial(11) );
-		System.out.println( fib(48) );
+		// System.out.println( fib(48) );
+		// 3 varillas 'a','b','c'  'a' origen 'c' destino
+		// Búsqueda binaria (ver BusquedaBinaria.java)
+		hanoi( 4, 'a', 'c', 'b' );  
+	}
+	
+	private static void hanoi( int n, char origen, char dest, char aux ) {
+		if (n==1) {
+			System.out.println( "Mover disco 1 de " + origen + " a " + dest );
+		} else {
+			// Soluc torre n-1 origen a auxi
+			hanoi( n-1, origen, aux, dest );
+			// Mover disco n de origen a dest
+			System.out.println( "Mover disco " + n + " de " + origen + " a " + dest );
+			// Soluc torre n-1 auxi a dest
+			hanoi( n-1, aux, dest, origen );
+		}
 	}
 	
 	public static long fib( int num ) {
