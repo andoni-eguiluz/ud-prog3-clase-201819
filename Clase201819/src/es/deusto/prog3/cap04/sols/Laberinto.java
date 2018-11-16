@@ -29,7 +29,7 @@ public class Laberinto {
 			l.mueve( dir );         mostrarLab( l, "Mueve " + dir, true ); // Visualización
 			boolean fin = resuelveLaberinto( l );
 			if (fin) sacaMens( "Encontrada una salida" );
-			// if (fin) return true;  // Truncamos el proceso cuando se acaba
+			if (fin) return true;  // Truncamos el proceso cuando se acaba (observa que si se comenta esta línea, no se trunca la recursión y se hacen todos los caminos posibles)
 			l.mueve( dir.dirOpuesta() );       mostrarLab( l, "Backtrack " + dir.dirOpuesta(), true ); // Visualización
 		}
 		return l.acabado();
@@ -107,9 +107,10 @@ public class Laberinto {
 		} else if (casilla == ' ' ) {
 			lCasilla.setBackground( Color.WHITE );
 			lCasilla.setText( "   " );
-		} else if (casilla == '.' ) {
+		}
+		if (l.marca[fila][col]) {
 			lCasilla.setBackground( Color.LIGHT_GRAY );
-			lCasilla.setText( " . " );
+			if (casilla==' ') lCasilla.setText( " . " );  // Si es pasillo andado pone un punto
 		}
 		if (fila==l.filaJugador && col==l.colJugador) {
 			lCasilla.setBackground( Color.MAGENTA );
@@ -184,9 +185,10 @@ public class Laberinto {
 		"XXXXXXEXXXXXXXXXXXXX"
 	};
 	
-	private char[][] lab;     // Laberinto ('X' para pared, 'E' para entrada, 'S' para salida, ' ' para camino, '.' para marca)
-	private int filaJugador;  // Posición de fila donde está el jugador del laberinto (-1 si no ha entrado)
-	private int colJugador;   // Posición de columna donde está el jugador del laberinto (-1 si no ha entrado)
+	private char[][] lab;      // Laberinto ('X' para pared, 'E' para entrada, 'S' para salida, ' ' para camino)
+	private boolean[][] marca; // Indicación de si se ha pasado o no por la casilla indicada
+	private int filaJugador;   // Posición de fila donde está el jugador del laberinto (-1 si no ha entrado)
+	private int colJugador;    // Posición de columna donde está el jugador del laberinto (-1 si no ha entrado)
 	
 	/** Inicializa un laberinto partiendo de un modelo dato con un array de strings
 	 * @param lab	Laberinto donde cada fila es un string y cada carácter simboliza el objeto del
@@ -196,6 +198,7 @@ public class Laberinto {
 	public Laberinto( String[] lab ) {
 		int numCols = lab[0].length();
 		this.lab = new char[lab.length][numCols];
+		this.marca = new boolean[lab.length][numCols];
 		int numFila = 0;
 		for (String fila : lab) {
 			for (int col=0; col<fila.length(); col++) {
@@ -218,7 +221,7 @@ public class Laberinto {
 	public void reset() {
 		for (int fila=0; fila<lab.length; fila++) {
 			for (int col=0;col<lab[0].length; col++) {
-				if (lab[fila][col]=='.') lab[fila][col] = ' ';
+				marca[fila][col] = false;
 			}
 		}
 		filaJugador = -1;
@@ -239,7 +242,7 @@ public class Laberinto {
 		return lab[0].length;
 	}
 	
-	/** Mete al jugador en el laberinto (en la casilla de entrada)
+	/** Mete al jugador en el laberinto (en la casilla de entrada) y marca esa casilla como pasada
 	 */
 	public void entra() {
 		for (int fila=0; fila<lab.length; fila++) {
@@ -247,6 +250,7 @@ public class Laberinto {
 				if (lab[fila][col]=='E') {
 					filaJugador = fila;
 					colJugador = col;
+					marca[filaJugador][colJugador] = true;
 					return;
 				}
 			}
@@ -267,8 +271,7 @@ public class Laberinto {
 		else {  // Movimiento válido
 			filaJugador = filaDestino;
 			colJugador = colDestino;
-			if (lab[filaDestino][colDestino] == ' ') // Pone marca
-				lab[filaDestino][colDestino] = '.';  
+			marca[filaDestino][colDestino] = true;  
 			return true;
 		}
 	}
@@ -299,7 +302,7 @@ public class Laberinto {
 		int colDestino = calculaColDestino(avance);
 		if (filaDestino>=getAltura() || filaDestino<0 || colDestino>=getAnchura() || colDestino<0)
 			return false;
-		else if (" .S".contains( ""+lab[filaDestino][colDestino]))
+		else if (" ES".contains( ""+lab[filaDestino][colDestino]))
 			return true;
 		else return false;
 	}
@@ -313,9 +316,7 @@ public class Laberinto {
 		int colDestino = calculaColDestino(avance);
 		if (filaDestino>=getAltura() || filaDestino<0 || colDestino>=getAnchura() || colDestino<0)
 			return false;
-		else if (lab[filaDestino][colDestino]=='.')
-			return true;
-		else return false;
+		else return marca[filaDestino][colDestino];
 	}
 	
 	/** Comprueba si hay algún movimiento posible a casilla sin marca y devuelve la primer dirección disponible.
@@ -346,6 +347,7 @@ public class Laberinto {
 			for (int col=0;col<lab[0].length; col++) {
 				char c = lab[fila][col];
 				if (fila==filaJugador && col==colJugador) c = 'O';
+				if (marca[fila][col] && c=='.') c = '.';
 				ret += c;
 			}
 			ret += "\n";
