@@ -46,16 +46,16 @@ public class BusquedaBinaria {
 		private static long contLlamadas = 0;
 		private static long contComparaciones = 0;
 		private static int buscaEnVector( int[] array, int valor, int ini, int fin  ) {
-			contLlamadas++;
+										contLlamadas++;
 			// System.out.println( "Busco en " + ini + "," + fin );
-			contComparaciones++;
+										contComparaciones++;
 			if (ini>fin) return -1;  // Caso base: no encontrado
 			int mitad = (ini + fin) / 2;
-			contComparaciones++;
+										contComparaciones++;
 			if (array[mitad]==valor) { // Caso base: encontrado
 				return mitad;
 			} else {
-				contComparaciones++;
+										contComparaciones++;
 				if (array[mitad]>valor) {  // Izquierda
 					return buscaEnVector( array, valor, ini, mitad-1 );
 				} else {  // Derecha
@@ -66,15 +66,15 @@ public class BusquedaBinaria {
 
 		// Versión 2: Alguna comparación menos (atrasando el == que es el que menos veces pasa)
 		private static int buscaEnVector2( int[] array, int valor, int ini, int fin  ) {
-			contLlamadas++;
-			contComparaciones++;
+										contLlamadas++;
+										contComparaciones++;
 			if (ini>fin) return -1;
 			int mitad = (ini + fin) / 2;
-			contComparaciones++;
+										contComparaciones++;
 			if (array[mitad]>valor) {
 				return buscaEnVector2( array, valor, ini, mitad-1 );
 			} else {
-				contComparaciones++;
+										contComparaciones++;
 				if (array[mitad]==valor) {
 					return mitad;
 				} else {
@@ -85,10 +85,10 @@ public class BusquedaBinaria {
 		
 		// Versión 3: Dividiendo el vector siempre en mitades (no en 3 partes) SIN COMPARAR el elemento intermedio
 		private static int buscaEnVector3( int[] array, int valor, int ini, int fin  ) {
-			contLlamadas++;
-			contComparaciones++;
+										contLlamadas++;
+										contComparaciones++;
 			if (ini==fin) {
-				contComparaciones++;
+										contComparaciones++;
 				if (array[ini]==valor) {
 					return ini;
 				} else {
@@ -96,7 +96,7 @@ public class BusquedaBinaria {
 				}
 			} else {
 				int mitad = (ini + fin) / 2;
-				contComparaciones++;
+										contComparaciones++;
 				if (array[mitad]>=valor) {
 					return buscaEnVector3( array, valor, ini, mitad );  // Donde va el == va la mitad
 				} else {  // <
@@ -106,25 +106,32 @@ public class BusquedaBinaria {
 		}
 		
 	public static void main(String[] args) {
+		// Inicialización
 		array = inicializaVector( TAMANYO_ARRAY ); // Inicializa del 1 al n
+		
+		// Test de búsqueda de un valor
 		int val = 10;  // Valor a buscar
 		System.out.println( "Está el valor " + val + buscaEnVector( array, val ) ); // Pos
-		System.out.println( "Llamadas: " + contLlamadas );
-		// Comentar a partir de aquí si no se quiere hacer el test de llamadas y comparaciones
+		System.out.println( "Búsqueda: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+		
 		System.out.println( "Test de llamadas y comparaciones:");
+
 		// Test con versión iterativa
 		contLlamadas = 0; contComparaciones = 0;
 		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVectorLineal( array, i );
 		System.out.println( "Versión lineal: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+
 		// Test con versión 1
 		contLlamadas = 0; contComparaciones = 0;
 		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector( array, i );
 		System.out.println( "Versión binaria 1: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+
 		// Test con versión 2
 		contLlamadas = 0; contComparaciones = 0;
 		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector2( array, i, 0, TAMANYO_ARRAY-1 );
 		System.out.println( "Versión binaria 2: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
-		// Test con versión 1
+
+		// Test con versión 3
 		contLlamadas = 0; contComparaciones = 0;
 		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector3( array, i, 0, TAMANYO_ARRAY-1  );
 		System.out.println( "Versión binaria 3: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );

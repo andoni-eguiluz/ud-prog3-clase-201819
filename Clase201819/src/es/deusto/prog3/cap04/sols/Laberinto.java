@@ -175,8 +175,8 @@ public class Laberinto {
 	// ====================================================
 	
 	private static String[] LAB_POR_DEFECTO = { // Laberinto expresado como un array de strings
-		"XXXXXXXXXSXXXSXXXXXX",   // X son las paredes
-		"X   X X     X      X",   // S es la salida
+		"XXXXXXXXXXSXXXXXXSXX",   // X son las paredes
+		"X   X X     X      X",   // S es la salida (o las salidas)
 		"X X X X XXXXXXXXXX X",   // espacios son los caminos viables
 		"X X   X   X   X  X X",
 		"X XXXXXX XX X X XX X",
