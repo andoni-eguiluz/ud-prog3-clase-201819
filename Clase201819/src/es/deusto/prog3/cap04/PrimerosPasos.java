@@ -14,8 +14,51 @@ public class PrimerosPasos {
 		// System.out.println( fib(48) );
 		// 3 varillas 'a','b','c'  'a' origen 'c' destino
 		// Búsqueda binaria (ver BusquedaBinaria.java)
-		hanoi( 4, 'a', 'c', 'b' );  
+		// hanoi( 10, 'a', 'c', 'b' );  
+		// Combinatoria:
+		// 1: Combinaciones A B de 5 caracteres: AAAAA,AAAAB,AAABA...
+		// comb1( 8, "" );
+		// 2: Combinaciones A B C de 5 caracteres: AAAAA,AAAAB,AAAAC...
+		// comb2( 5, "" );
+		// 3: Combinaciones cars cualesquiera de 5 caracteres: AAAAA,AAAAB,AAAAC...
+		char[] cars = { 'A', 'B', 'C', 'D' };
+		comb3( cars, 5, "" );
 	}
+	
+	private static void comb3( char[] cars, int longi, String combAct ) {
+		if (longi==0) {
+			System.out.println( combAct );
+		} else {
+			for (char c : cars) {
+				comb3( cars, longi-1, combAct + c );
+			}
+		}
+	}
+	
+	private static void comb2( int longi, String combAct ) {
+		if (longi==0) {
+			System.out.println( combAct );
+		} else {
+			comb2( longi-1, combAct + "A" );
+			comb2( longi-1, combAct + "B" );
+			comb2( longi-1, combAct + "C" );
+		}
+	}
+	
+	// Combinaciones de A B de longitud N =
+	//    A concatenado con combinaciones A B long N-1
+	//    B concatenado con combinaciones A B long N-1
+	private static void comb1( int longi, String combAct ) {
+		if (longi==0) {
+			System.out.println( combAct );
+		} else {
+			comb1( longi-1, combAct + "A" );
+			comb1( longi-1, combAct + "B" );
+		}
+	}
+	
+	
+	
 	
 	private static void hanoi( int n, char origen, char dest, char aux ) {
 		if (n==1) {

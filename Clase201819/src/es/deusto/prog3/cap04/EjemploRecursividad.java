@@ -13,8 +13,54 @@ public class EjemploRecursividad {
 		// System.out.println( factorial3(14) );
 		// System.out.println( fib(46) );
 		// Búsqueda binaria (ver BusquedaBinaria.java)
-		hanoi( 4, 'a', 'c', 'b' );
+		// hanoi( 4, 'a', 'c', 'b' );
+		// comb1( 5, "" ); // Comb de 3 caracteres A o B
+		// comb2( 5, "" ); // Comb de 3 caracteres A o B o C
+		comb3( 5, new char[] { 'a', 'b', 'c', 'd' }, "" );
+		System.out.println( cont );
 	}
+
+	private static void comb3( int n, char[] cars, String combinacion ) {
+		cont++;
+		if (n==0) {
+			System.out.println( combinacion );
+		} else {
+			for (char c : cars) {
+				comb3( n-1, cars, combinacion + c );
+			}
+		}
+	}
+	
+	private static void comb2( int n, String combinacion ) {
+		cont++;
+		if (n==0) {
+			System.out.println( combinacion );
+		} else {
+			comb2( n-1, combinacion + "A" );
+			comb2( n-1, combinacion + "B" );
+			comb2( n-1, combinacion + "C" );
+		}
+	}
+	
+	
+	private static int cont=0;
+	// comb1 N caracteres A y B =
+	//    cadena A + todas las cadenas de N-1 caracteres de A y B
+	//    cadena B + todas las ...        N-1
+	// Caso base: N=0 ya tengo las cadenas finales
+	private static void comb1( int n, String combinacion ) {
+		cont++;
+		if (n==0) {
+			System.out.println( "  " + combinacion );
+		} else {
+			System.out.println( combinacion );
+			comb1( n-1, combinacion + "A" );
+			comb1( n-1, combinacion + "B" );
+		}
+	}
+	
+	
+	
 	
 	// Resolver torre de hanoi de tamaño N de varilla o -> d, auxiliar a
 	// - Resolver torre N-1 o -> a, aux d
