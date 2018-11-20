@@ -71,7 +71,7 @@ public class Laberinto {
 		taMens.setFont( new Font( "Courier", Font.PLAIN, 18 ) );
 		ventana.add( new JScrollPane(taMens), BorderLayout.SOUTH );
 		slTempo = new JSlider( 0, 1000 );
-		slTempo.setValue( 1000 - (int) msegsPausa );
+		slTempo.setValue( 0 );
 		JPanel pSuperior = new JPanel();
 		JButton bPausa = new JButton( enPausa ? "Play" : "Pausa" );
 		pSuperior.add( new JLabel("Vel:")); pSuperior.add( slTempo ); pSuperior.add( bPausa );
@@ -81,9 +81,11 @@ public class Laberinto {
 		ventana.setLocationRelativeTo( null );
 		// Eventos
 		slTempo.addChangeListener( new ChangeListener() {
+			private double factor = 1000.0 / Math.log(1001);
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				msegsPausa = 1000 - slTempo.getValue();
+				// msegsPausa = 1000 - slTempo.getValue(); // Cambio lineal (0-1000 --> cambio msgs 1000 a 0)
+				msegsPausa = (int) Math.round( factor * (Math.log(1001) - Math.log(1+slTempo.getValue())) );  // Cambio logarítmico - más natural para tener rango de aceleración en el slider
 			}
 		});
 		bPausa.addActionListener( (e) -> {
