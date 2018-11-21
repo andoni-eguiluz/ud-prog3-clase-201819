@@ -11,6 +11,12 @@ public class BusquedaBinaria {
 		}
 		return array;
 	}
+	
+	private static String arrayToString( int[] array ) {
+		String ret = "[ ";
+		for (int i : array) ret += (i + " ");
+		return ret + "]";
+	}
 
 	
 	/** Busca un valor en un vector de enteros ORDENADO de forma ITERATIVA (lineal)
@@ -84,6 +90,7 @@ public class BusquedaBinaria {
 		}
 		
 		// Versión 3: Dividiendo el vector siempre en mitades (no en 3 partes) SIN COMPARAR el elemento intermedio
+		// Versión < por un lado y >= por otro
 		private static int buscaEnVector3( int[] array, int valor, int ini, int fin  ) {
 										contLlamadas++;
 										contComparaciones++;
@@ -101,6 +108,29 @@ public class BusquedaBinaria {
 					return buscaEnVector3( array, valor, ini, mitad );  // Donde va el == va la mitad
 				} else {  // <
 					return buscaEnVector3( array, valor, mitad+1, fin ); // Donde no, el de la mitad se desprecia (2 partes)
+				}
+			}
+		}
+		
+		// Versión 3b: Dividiendo el vector siempre en mitades (no en 3 partes) SIN COMPARAR el elemento intermedio
+		// Versión <= por un lado y > por otro
+		private static int buscaEnVector3b( int[] array, int valor, int ini, int fin  ) {
+										contLlamadas++;
+										contComparaciones++;
+			if (ini==fin) {
+										contComparaciones++;
+				if (array[ini]==valor) {
+					return ini;
+				} else {
+					return -1;
+				}
+			} else {
+				int mitad = (ini + fin) / 2;
+										contComparaciones++;
+				if (array[mitad]>valor) {
+					return buscaEnVector3b( array, valor, ini, mitad-1 );  // Si no es igual, se desprecia la mitad
+				} else {  // <=
+					return buscaEnVector3b( array, valor, mitad, fin ); // Si es <= se incluye la mitad
 				}
 			}
 		}
@@ -141,6 +171,20 @@ public class BusquedaBinaria {
 		//		if ((i%2==0 && b!=-1) || (i%2!=0 && b==-1)) 
 		//			System.out.println( "Error en búsqueda de " + i + " con retorno " + b );
 		// }
+		
+		// Segundo test: Cómo se busca cuando hay duplicidades en los datos
+		System.out.println();
+		array = new int[] { 1, 1, 2, 2, 2, 2, 2, 3, 4, 5 };
+		int donde2 = buscaEnVector( array, 2, 0, array.length-1 );
+		System.out.println( "Dividiendo por > | == | <");
+		System.out.println( "  El 2 se encuentra en la posición " + donde2 + " en " + arrayToString(array) );
+		System.out.println( "  (nota: donde se encuentra por primera vez -coincidencia-)" );
+		donde2 = buscaEnVector3( array, 2, 0, array.length-1 );
+		System.out.println( "Dividiendo por >= | <");
+		System.out.println( "  El 2 se encuentra en la posición " + donde2 + " en " + arrayToString(array) );
+		donde2 = buscaEnVector3b( array, 2, 0, array.length-1 );
+		System.out.println( "Dividiendo por > | <=");
+		System.out.println( "  El 2 se encuentra la posición " + donde2 + " en " + arrayToString(array) );
 	}
 
 }
