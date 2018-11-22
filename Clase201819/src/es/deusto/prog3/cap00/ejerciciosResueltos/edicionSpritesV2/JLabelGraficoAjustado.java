@@ -169,6 +169,18 @@ public class JLabelGraficoAjustado extends JLabel {
 		setLocation( (int)Math.round(x), (int)Math.round(y) );
 	}
 	
+		private boolean horFlip = false;   // Flip horizontal
+		private boolean vertFlip = false;  // Flip vertical
+	/** Provoca que la imagen sea especular
+	 * @param horFlip	true para flip horizontal
+	 * @param vertFlip	true para flip vertical
+	 */
+	public void setFlip( boolean horFlip, boolean vertFlip ) {
+		this.horFlip = horFlip;
+		this.vertFlip = vertFlip;
+		repaint();
+	}
+	
 	// Dibuja este componente de una forma no habitual
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -201,7 +213,11 @@ public class JLabelGraficoAjustado extends JLabel {
 			int altZoom = (int) Math.round( alt * zoom );
 			int iniXZoom = iniX + (anc - ancZoom)/2;
 			int iniYZoom = iniY + (alt - altZoom)/2;
-	        g2.drawImage(imagenObjeto, iniXZoom, iniYZoom, ancZoom, altZoom, null);
+			if (horFlip || vertFlip) {
+				g2.scale( horFlip?-1:1, vertFlip?-1:1);
+			    g2.translate(horFlip?-getWidth():0, vertFlip?-getHeight():0);
+			}
+		    g2.drawImage(imagenObjeto, iniXZoom, iniYZoom, ancZoom, altZoom, null);
 		}
 	}
 
@@ -210,11 +226,16 @@ public class JLabelGraficoAjustado extends JLabel {
 	public static void main(String[] args) {
 		JFrame f = new JFrame( "Prueba JLabelGraficoAjustado" );
 		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		JLabelGraficoAjustado label = new JLabelGraficoAjustado( "coche.png", 100, 100 );
-			// TODO probar este 300, 300 con diferentes tamaños. Si x<=0 ajusta el ancho y si es y<=0 ajusta el alto
+		JLabelGraficoAjustado label = new JLabelGraficoAjustado( "Melee (4).png", 400, 400 );
 		f.setSize( 600, 400 );
 		f.add( label, BorderLayout.CENTER );
 		f.setVisible( true );
+		try { Thread.sleep( 2000 ); } catch (Exception e) {}  // Espera 2 segundos
+		label.setFlip( true, false );
+		try { Thread.sleep( 2000 ); } catch (Exception e) {}  // Espera 2 segundos
+		label.setFlip( false, true );
+		try { Thread.sleep( 2000 ); } catch (Exception e) {}  // Espera 2 segundos
+		label.setFlip( true, true );
 		try { Thread.sleep( 5000 ); } catch (Exception e) {}  // Espera 5 segundos
 		for (int rot=0; rot<=200; rot++ ) {
 			label.setRotacion( rot*Math.PI/100 );
@@ -222,7 +243,15 @@ public class JLabelGraficoAjustado extends JLabel {
 		}
 		for (int op=-100; op<=100; op++ ) {
 			label.setOpacidad( Math.abs(op*0.01f) );
-			try { Thread.sleep( 20 ); } catch (Exception e) {}  // Espera dos décimas entre rotación y rotación
+			try { Thread.sleep( 20 ); } catch (Exception e) {}  // Espera dos décimas entre cambio y cambio de opacidad
+		}
+		for (int rot=100; rot>1; rot-- ) {
+			label.setZoom( rot/100.0 );
+			try { Thread.sleep( 20 ); } catch (Exception e) {}  // Espera dos décimas entre zoom y zoom
+		}
+		for (int rot=1; rot<=100; rot++ ) {
+			label.setZoom( rot/100.0 );
+			try { Thread.sleep( 20 ); } catch (Exception e) {}  // Espera dos décimas entre zoom y zoom
 		}
 	}
 	
