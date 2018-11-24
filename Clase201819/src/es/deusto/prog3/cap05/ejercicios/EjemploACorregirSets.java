@@ -11,13 +11,13 @@ public class EjemploACorregirSets {
 		hS.add( new Fantasma( "opera phantom", 4, 2) );
 		hS.add( new Fantasma( "casper", 1, 2) );
 		hS.add( new Fantasma( "myrtle", 5, 10) );
-		System.out.println( hS );
+		System.out.println( hS );  // ¿Por qué añade dos veces a casper?
 		hSS = new TreeSet<>();
 		hSS.add( new Fantasma( "casper", 1, 2) );
 		hSS.add( new Fantasma( "opera phantom", 4, 2) );
 		hSS.add( new Fantasma( "casper", 1, 2) );
 		hSS.add( new Fantasma( "myrtle", 5, 10) );
-		System.out.println( hSS );
+		System.out.println( hSS ); // ¿Por qué da error en ejecución?
 	}
 	
 	private static class Fantasma {
