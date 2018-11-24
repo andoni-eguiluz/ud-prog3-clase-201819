@@ -255,6 +255,17 @@ public class VentanaBancoDePruebas extends JFrame {
 		this.procs = procs;
 	}
 	
+	/** Reinicia los tamaños de ejecución
+	 * @param tamMin	Tamaño mínimo
+	 * @param tamMax	Tamaño máximo
+	 * @param incTam	Incremento de tamaño
+	 */
+	public void setTamanyos( int tamMin, int tamMax, int incTam ) {
+		tfTamMin.setText( "" + tamMin );
+		tfTamMax.setText( "" + tamMax );
+		tfIncTam.setText( "" + incTam );
+	}
+	
 		private volatile String atributosAVer = null;
 	/** Activa los atributos que se quieren ver en esta ventana. Por defecto se ven todos
 	 * @param atributos	Lista de atributos a ver en un string, por ejemplo "raiz#elemento#izquierdo#derecho"
