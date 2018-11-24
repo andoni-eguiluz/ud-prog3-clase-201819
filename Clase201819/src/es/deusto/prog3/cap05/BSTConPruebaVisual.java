@@ -23,6 +23,7 @@ public class BSTConPruebaVisual {
 		VentanaBancoDePruebas vent = new VentanaBancoDePruebas();
 		vent.setAtributosAVer( "raiz#elemento#izquierdo#derecho" );
 		vent.setProcesos( pruebas, procs );
+		vent.setTamanyos( 0, 10000, 1000 );
 		vent.setVisible( true );
 		// Visualización de árboles de ejemplo equilibrados y desequilibrados
 		BSTEquil bstEq = new BSTEquil();
