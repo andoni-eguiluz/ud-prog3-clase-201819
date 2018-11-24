@@ -21,6 +21,7 @@ public class PruebaAlgoritmosOrdenacion {
 		procs.add( new OrdenarQuickSort( "zigzag" ) );
 		VentanaBancoDePruebas vent = new VentanaBancoDePruebas();
 		vent.setProcesos( pruebas, procs );
+		vent.setTamanyos( 0, 100000, 5000 );
 		vent.setVisible( true );
 	}
 
