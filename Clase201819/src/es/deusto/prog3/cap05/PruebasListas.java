@@ -2,6 +2,7 @@ package es.deusto.prog3.cap05;
 
 import static es.deusto.prog3.cap05.AnalisisEjecucion.*;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import es.deusto.prog3.cap06.pr0506resuelta.ExploradorObjetos;
+import es.deusto.prog3.utils.IUConsola;
 
 public class PruebasListas {
 		
@@ -180,22 +182,37 @@ public class PruebasListas {
 			cogePosicionesLista( ll, numVeces );
 			visuTiempo( "  Tras coger " + numVeces + " posiciones numéricas sueltas de LinkedList de " + tamListas );
 		}
+		System.out.println();
 		System.out.println( String.format("Tamaño en memoria del AL: %,d bytes.", ExploradorObjetos.getTamanyoObjeto( al ) ) );
 		System.out.println( String.format("Tamaño en memoria del LL: %,d bytes.", ExploradorObjetos.getTamanyoObjeto( ll ) ) );
 	}
 	
 	public static void main(String[] args) {
+		IUConsola.lanzarConsolaEnIU( null );  // Para ver la consola en ventana y lanzar las pruebas
 		// int numPrueba = 1;  // Ver ArrayList
 		// int numPrueba = 2;  // Ver LinkedList
-		int numPrueba = 3;  // Ver ArrayList y LinkedList
-		System.out.println( "Test 1 - mejor ver el segundo que es más aproximado en uso de memoria");
-		pruebaEspacioListas( numPrueba );
-		System.out.println();
-		pruebaEspacioListas( numPrueba );
-		System.out.println();
-		System.out.println( "Test 2 - VER ESTE:");
-		pruebaEspacioListas( numPrueba );
-		pruebaTiempoListas( numPrueba );
+		// int numPrueba = 3;  // Ver ArrayList y LinkedList
+		// pruebaListas( numPrueba );
+		IUConsola.addBoton( "ArrayList", () -> pruebaListas(1) );
+		IUConsola.addBoton( "LinkedList", () -> pruebaListas(2) );
+		IUConsola.addBoton( "Ambos", () -> pruebaListas(3) );
+	}
+	
+	private static void pruebaListas( int numPrueba ) {
+		Thread t = new Thread() {
+			public void run() {
+				System.out.println( "Test 1 - mejor ver el segundo que es más aproximado en uso de memoria");
+				pruebaEspacioListas( numPrueba );
+				System.out.println();
+				pruebaTiempoListas( numPrueba );
+				System.out.println();
+				System.out.println( "Test 2 - VER ESTE:");
+				pruebaEspacioListas( numPrueba );
+				System.out.println();
+				pruebaTiempoListas( numPrueba );
+			}
+		};
+		t.start();
 	}
 	
 }
