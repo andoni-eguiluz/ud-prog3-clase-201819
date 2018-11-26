@@ -26,7 +26,7 @@ public class PruebaEstructurasPersonaVentana {
 		procs.add( new AccesoAPersonasTS() );
 		VentanaBancoDePruebas vent = new VentanaBancoDePruebas();
 		vent.setProcesos( pruebas, procs );
-		vent.setTamanyos( 0, 10000, 1000 );
+		vent.setTamanyos( 0, 20000, 1000 );
 		vent.setVisible( true );
 		Utils.muestraThreadsActivos();
 	}
