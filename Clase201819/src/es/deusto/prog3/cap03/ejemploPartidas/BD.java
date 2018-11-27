@@ -85,7 +85,7 @@ public class BD {
 	}
 	
 	/** Reinicia en blanco las tablas de la base de datos. 
-	 * UTILIZAR ESTE MËTODO CON PRECAUCIÓN. Borra todos los datos que hubiera ya en las tablas
+	 * UTILIZAR ESTE MÉTODO CON PRECAUCIÓN. Borra todos los datos que hubiera ya en las tablas
 	 * @param con	Conexión ya creada y abierta a la base de datos
 	 * @return	sentencia de trabajo si se borra correctamente, null si hay cualquier error
 	 */
