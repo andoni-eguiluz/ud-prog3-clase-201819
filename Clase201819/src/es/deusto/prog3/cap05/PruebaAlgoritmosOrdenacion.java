@@ -7,7 +7,7 @@ import java.util.Random;
 import es.deusto.prog3.cap06.pr0506resuelta.ProcesoProbable;
 import es.deusto.prog3.cap06.pr0506resuelta.gui.VentanaBancoDePruebas;
 
-/** Prueba combinada de distintas estructuras de datos y distintos tamaños
+/** Prueba visual de eficiencia de algoritmos de ordenación
  * @author Andoni Eguíluz Morán
  * Facultad de Ingeniería - Universidad de Deusto
  */
