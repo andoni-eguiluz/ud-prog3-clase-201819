@@ -15,7 +15,7 @@ import javax.swing.tree.*;
 public class EspacioEnDiscoConJTree {
 
 	public static void main(String[] args) {
-		String dirInicial = "d:/";
+		String dirInicial = "c:/";
 		if (args.length>0) dirInicial = args[0];
 		initVentana( dirInicial );
 		visualizarEspacioEnDiscoConJTree( dirInicial );  // Se pueden pasar varias carpetas
