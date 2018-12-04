@@ -118,7 +118,7 @@ public class GrafoCarreteras {
 		System.out.println();
 		System.out.println( "Camino entre Las Palmas y Bilbao?" );
 		System.out.println( 
-				grafoEjemplo.getDistanciaMinima( "Las Palmas", "Bilbao" ));
+			grafoEjemplo.getDistanciaMinima( "Las Palmas", "Bilbao" ));
 	}
 
 }
