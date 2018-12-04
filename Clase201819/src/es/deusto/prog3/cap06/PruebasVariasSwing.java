@@ -165,7 +165,6 @@ public class PruebasVariasSwing {
 		fondo.add( miFrameInterno2 );
 		miFrameInterno1.setVisible( true );
 		miFrameInterno2.setVisible( true );
-		miJFrame.setLocation( 2000, 100 );  // Para segunda pantalla
 		JOptionPane.showInternalConfirmDialog( fondo, "Hola" );  // JOptionPane internal
 	}
 
