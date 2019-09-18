@@ -44,7 +44,7 @@ public class IUConsola {
 	 * @return	true si el proceso se hace correctamente, false en caso contrario. 
 	 */
 	public static boolean lanzarConsolaEnIU( OutputStream salidaOut, OutputStream salidaErr, int... numLineas ) {
-		if (numLineas.length>0 && numLineas[0]>100) {
+		if (numLineas!=null && numLineas.length>0 && numLineas[0]>100) {
 			taOut.setLimLineas( numLineas[0] );
 			taErr.setLimLineas( numLineas[0] );
 		}
@@ -75,7 +75,7 @@ public class IUConsola {
 	 * @return	true si el proceso se hace correctamente, false en caso contrario. 
 	 */
 	public static boolean lanzarConsolaEnIU( OutputStream salidaOut, int... numLineas ) {
-		if (numLineas.length>0 && numLineas[0]>100) {
+		if (numLineas!=null && numLineas.length>0 && numLineas[0]>100) {
 			taOut.setLimLineas( numLineas[0] );
 		}
 		try {
@@ -117,7 +117,7 @@ public class IUConsola {
 	 */
 	public static void main(String[] args) {
 		try {
-			int numPrueba = 1;
+			int numPrueba = 2;  // 1.- prueba con ficheros / 2.- prueba con salida out+err / 3.- prueba con salida out
 			if (numPrueba==1) {
 				lanzarConsolaEnIU( new FileOutputStream( "test_out.txt" ), new FileOutputStream( "test_err.txt" ) );
 				System.out.println( "Prueba consola salida" );
@@ -126,8 +126,13 @@ public class IUConsola {
 				System.err.println( "Prueba consola error" );
 				System.err.println( "Prueba consola error 2" );
 			} else if (numPrueba==2) {
+				lanzarConsolaEnIU( null, null, null );
+				System.out.println( "Prueba tilde: áéíóúñÑÁÉÍÓÚ" );
+				System.err.println( "Prueba consola error" );
+			} else if (numPrueba==3) {
 				lanzarConsolaEnIU( null, null );
 				System.out.println( "Prueba tilde: áéíóúñÑÁÉÍÓÚ" );
+				System.err.println( "Prueba consola error" );
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
